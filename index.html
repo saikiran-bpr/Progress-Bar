@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .progress-bar {
+      align-self: center;
+      width: 200px;
+      height: 20px;
+      background-color: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 30px;
+    }
+    .progress {
+      height: 100%;
+      background-color: #4caf50;
+      width: 0;
+      transition: width 0.5s ease-in-out;
+    }
+    .wrap{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }  
+    .input-time{
+        display: flex;
+        padding: 10px;
+        align-self: center;
+        flex-direction: row;
+    }
+    .start-time{
+        /* margin: 0px 0px; */
+        /* margin-bottom: 10px; */
+        /* padding: 0px; */
+        /* margin-top: 100px; */
+        margin-left: 10px;
+        width: 100px;
+        height: 58px;
+    }
+    .timer{
+        height: 50px;
+        /* margin-top: 100px; */
+        align-self: center;
+        width: 250px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="input-time">
+        <label for="timer"></label>
+        <input type="number" class="timer" placeholder="Enter the time here"/>
+        <button class="start-time">Click here to start progress</button>
+    </div>
+    <div class="progress-bar">
+        <div class="progress"></div>
+      </div>
+    <div class="error-message"></div>
+  </div>
+  <script>
+    document.querySelector('.start-time').addEventListener('click', () => {
+      document.querySelector('.error-message').innerText = "";
+      document.querySelector('.progress').style.width = "0px";
+      let value = document.querySelector('.timer').value;
+      value = parseInt(value,10);
+      if(value <= 0){
+          document.querySelector('.error-message').innerText = "Please enter a valid positive number for the time.";
+          return;
+      }
+      let increase = 200/value;
+      let curr = increase;
+      for(let i = 1; i <= value; i++){
+          setTimeout(() => {
+              let node = document.querySelector('.progress');
+              node.style.width = `${curr}px`;
+              curr += increase;
+          }, i*1000);
+      }
+    });
+  </script>
+</body>
+</html>
